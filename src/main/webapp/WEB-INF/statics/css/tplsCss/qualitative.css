@@ -1,0 +1,40 @@
+.xingRenMain{
+    width: 97%;
+    min-height: 550px;
+    margin: 25px auto;
+    padding-left: 5%;
+    color: #37847c;
+    background-color: #FFFFFF;
+}
+.xingRen{
+    text-align: center;
+    color: #2fa2ca;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: bolder;
+    margin-top: 20px;
+
+}
+.item span {
+    color: #0eaaf2;
+    font-size: 1.1em;
+    display:block;
+}
+.xingRen p{
+    width: 15%;
+    padding-top: 2%;
+    margin: 0 auto;
+    border-bottom: 1px solid #2fa2ca;
+}
+.qualitative-submit{
+    width: 15%;
+    margin: 2% auto;
+    background-color:#37847c;
+    color: whitesmoke;
+}
+.qualitative-submit:hover,
+.qualitative-submit:active,
+.qualitative-submit:focus{
+    background-color:#a94442 ;
+    border:#a94442;
+}

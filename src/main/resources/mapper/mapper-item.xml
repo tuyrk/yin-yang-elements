@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cdutcm.dao.ItemDao">
+    <!-- 木 -->
+    <resultMap id="itemWood" type="com.cdutcm.entity.ItemWood">
+        <id property="id" column="id"/>
+        <result property="phone" column="phone"/>
+        <result property="woodComplexion" column="complexion"/>
+        <result property="woodPsychology" column="psychology"/>
+        <result property="woodCold" column="cold"/>
+        <result property="woodSweat" column="sweat"/>
+        <result property="woodDiet" column="diet"/>
+        <result property="woodShit" column="shit"/>
+        <result property="woodUrine" column="urine"/>
+        <result property="woodSleep" column="sleep"/>
+        <result property="woodDizzy" column="dizzy"/>
+        <result property="woodEyes" column="eyes"/>
+        <result property="woodChest" column="chest"/>
+        <result property="woodLimbs" column="limbs"/>
+        <result property="woodMenstruate" column="menstruate"/>
+        <result property="woodSeason" column="season"/>
+    </resultMap>
+    <select id="selectWoodByCard" resultMap="itemWood">
+        SELECT *
+        FROM item_wood
+        WHERE phone = #{phone};
+    </select>
+    <insert id="saveWood" parameterType="com.cdutcm.entity.ItemWood">
+        INSERT INTO item_wood (phone, complexion, psychology, cold, sweat, diet, shit, urine, sleep, dizzy, eyes, chest, limbs, menstruate, season, qualitative_a, qualitative_k)
+        VALUES
+            (#{phone}, #{woodComplexion}, #{woodPsychology}, #{woodCold}, #{woodSweat}, #{woodDiet}, #{woodShit},
+                       #{woodUrine}, #{woodSleep}, #{woodDizzy}, #{woodEyes}, #{woodChest}, #{woodLimbs},
+             #{woodMenstruate}, #{woodSeason}, #{qualitativeA}, #{qualitativeK});
+    </insert>
+    <update id="updateWood" parameterType="com.cdutcm.entity.ItemWood">
+        UPDATE item_wood
+        SET complexion    = #{woodComplexion}, psychology = #{woodPsychology}, cold = #{woodCold},
+            sweat         = #{woodSweat},
+            diet          = #{woodDiet}, shit = #{woodShit}, urine = #{woodUrine},
+            sleep         = #{woodSleep}, dizzy = #{woodDizzy},
+            eyes          = #{woodEyes}, chest = #{woodChest}, limbs = #{woodLimbs},
+            menstruate    = #{woodMenstruate}, season = #{woodSeason},
+            qualitative_a = #{qualitativeA}, qualitative_k = #{qualitativeK}
+        WHERE phone = #{phone};
+    </update>
+
+    <!-- 火 -->
+    <resultMap id="itemFire" type="com.cdutcm.entity.ItemFire">
+        <id property="id" column="id"/>
+        <result property="phone" column="phone"/>
+        <result property="fireComplexion" column="complexion"/>
+        <result property="firePsychology" column="psychology"/>
+        <result property="fireCold" column="cold"/>
+        <result property="fireSweat" column="sweat"/>
+        <result property="fireDiet" column="diet"/>
+        <result property="fireUrine" column="urine"/>
+        <result property="fireSleep" column="sleep"/>
+        <result property="fireMental" column="mental"/>
+        <result property="fireLips" column="lips"/>
+        <result property="fireMind" column="mind"/>
+        <result property="fireProne" column="prone"/>
+        <result property="fireSeason" column="season"/>
+    </resultMap>
+    <select id="selectFireByCard" resultMap="itemFire">
+        SELECT *
+        FROM item_fire
+        WHERE phone = #{phone};
+    </select>
+    <insert id="saveFire" parameterType="com.cdutcm.entity.ItemFire">
+        INSERT INTO item_fire (phone, complexion, psychology, cold, sweat, diet, urine, sleep, mental, lips, mind, prone, season, qualitative_a, qualitative_k)
+        VALUES
+            (#{phone}, #{fireComplexion}, #{firePsychology}, #{fireCold}, #{fireSweat}, #{fireDiet}, #{fireUrine},
+                       #{fireSleep}, #{fireMental}, #{fireLips},
+                       #{fireMind}, #{fireProne}, #{fireSeason}, #{qualitativeA}, #{qualitativeK});
+    </insert>
+    <update id="updateFire" parameterType="com.cdutcm.entity.ItemFire">
+        UPDATE item_fire
+        SET complexion = #{fireComplexion}, psychology = #{firePsychology}, cold = #{fireCold},
+            sweat       = #{fireSweat}, diet = #{fireDiet},
+            urine       = #{fireUrine}, sleep = #{fireSleep}, mental = #{fireMental},
+            lips       = #{fireLips}, mind = #{fireMind},
+            prone       = #{fireProne}, season = #{fireSeason}, qualitative_a = #{qualitativeA},
+            qualitative_k   = #{qualitativeK}
+        WHERE phone = #{phone};
+    </update>
+
+    <!-- 土 -->
+    <resultMap id="itemEarth" type="com.cdutcm.entity.ItemEarth">
+        <id property="id" column="id"/>
+        <result property="phone" column="phone"/>
+        <result property="earthComplexion" column="complexion"/>
+        <result property="earthPsychology" column="psychology"/>
+        <result property="earthDiet" column="diet"/>
+        <result property="earthShit" column="shit"/>
+        <result property="earthMental" column="mental"/>
+        <result property="earthBody" column="body"/>
+        <result property="earthLips" column="lips"/>
+        <result property="earthStomach" column="stomach"/>
+        <result property="earthSeason" column="season"/>
+    </resultMap>
+    <select id="selectEarthByCard" resultMap="itemEarth">
+        SELECT *
+        FROM item_earth
+        WHERE phone = #{phone};
+    </select>
+    <insert id="saveEarth" parameterType="com.cdutcm.entity.ItemEarth">
+        INSERT INTO item_earth (phone, complexion, psychology, diet, shit, mental, body, lips, stomach, season, qualitative_a, qualitative_k)
+        VALUES
+            (#{phone}, #{earthComplexion}, #{earthPsychology}, #{earthDiet}, #{earthShit}, #{earthMental}, #{earthBody},
+                       #{earthLips}, #{earthStomach},
+                       #{earthSeason}, #{qualitativeA}, #{qualitativeK});
+    </insert>
+    <update id="updateEarth" parameterType="com.cdutcm.entity.ItemEarth">
+        UPDATE item_earth
+        SET complexion = #{earthComplexion}, psychology = #{earthPsychology}, diet = #{earthDiet},
+            shit       = #{earthShit},
+            mental     = #{earthMental}, body = #{earthBody}, lips = #{earthLips},
+            stomach    = #{earthStomach}, season = #{earthSeason},
+            qualitative_a   = #{qualitativeA}, qualitative_k = #{qualitativeK}
+        WHERE phone = #{phone};
+    </update>
+
+    <!-- 金 -->
+    <resultMap id="itemMetal" type="com.cdutcm.entity.ItemMetal">
+        <id property="id" column="id"/>
+        <result property="phone" column="phone"/>
+        <result property="metalComplexion" column="complexion"/>
+        <result property="metalPsychology" column="psychology"/>
+        <result property="metalSweat" column="sweat"/>
+        <result property="metalDiet" column="diet"/>
+        <result property="metalShit" column="shit"/>
+        <result property="metalMental" column="mental"/>
+        <result property="metalCough" column="cough"/>
+        <result property="metalExpectoration" column="expectoration"/>
+        <result property="metalNose" column="nose"/>
+        <result property="metalSkin" column="skin"/>
+        <result property="metalSeason" column="season"/>
+    </resultMap>
+    <select id="selectMetalByCard" resultMap="itemMetal">
+        SELECT *
+        FROM item_metal
+        WHERE phone = #{phone};
+    </select>
+    <insert id="saveMetal" parameterType="com.cdutcm.entity.ItemMetal">
+        INSERT INTO item_metal (phone, complexion, psychology, sweat, diet, shit, mental, cough, expectoration, nose, skin, season, qualitative_a, qualitative_k)
+        VALUES
+            (#{phone}, #{metalComplexion}, #{metalPsychology}, #{metalSweat}, #{metalDiet}, #{metalShit}, #{metalMental},
+                       #{metalCough}, #{metalExpectoration},
+                       #{metalNose}, #{metalSkin}, #{metalSeason}, #{qualitativeA}, #{qualitativeK});
+    </insert>
+    <update id="updateMetal" parameterType="com.cdutcm.entity.ItemMetal">
+        UPDATE item_metal
+        SET complexion = #{metalComplexion}, psychology = #{metalPsychology}, sweat = #{metalSweat},
+            diet       = #{metalDiet}, shit = #{metalShit},
+            mental     = #{metalMental}, cough = #{metalCough}, expectoration = #{metalExpectoration},
+            nose       = #{metalNose}, skin = #{metalSkin},
+            season     = #{metalSeason}, qualitative_a = #{qualitativeA}, qualitative_k = #{qualitativeK}
+        WHERE phone = #{phone};
+    </update>
+
+    <!-- 水 -->
+    <resultMap id="itemWater" type="com.cdutcm.entity.ItemWater">
+        <id property="id" column="id"/>
+        <result property="phone" column="phone"/>
+        <result property="waterComplexion" column="complexion"/>
+        <result property="waterPsychology" column="psychology"/>
+        <result property="waterSweat" column="sweat"/>
+        <result property="waterUrine" column="urine"/>
+        <result property="waterWaist" column="waist"/>
+        <result property="waterSexuality" column="sexuality"/>
+        <result property="waterSpermatorrhea" column="spermatorrhea"/>
+        <result property="waterMenstruate" column="menstruate"/>
+        <result property="waterLeucorrhea" column="leucorrhea"/>
+        <result property="waterSeason" column="season"/>
+    </resultMap>
+    <select id="selectWaterByCard" resultMap="itemWater">
+        SELECT *
+        FROM item_water
+        WHERE phone = #{phone};
+    </select>
+    <insert id="saveWater" parameterType="com.cdutcm.entity.ItemWater">
+        INSERT INTO item_water (phone, complexion, psychology, sweat, urine, waist, sexuality, spermatorrhea, menstruate, leucorrhea, season, qualitative_a, qualitative_k)
+        VALUES
+            (#{phone}, #{waterComplexion}, #{waterPsychology}, #{waterSweat}, #{waterUrine}, #{waterWaist},
+                       #{waterSexuality}, #{waterSpermatorrhea},
+                       #{waterMenstruate}, #{waterLeucorrhea}, #{waterSeason}, #{qualitativeA}, #{qualitativeK});
+    </insert>
+    <update id="updateWater" parameterType="com.cdutcm.entity.ItemWater">
+        UPDATE item_water
+        SET complexion    = #{waterComplexion}, psychology = #{waterPsychology}, sweat = #{waterSweat},
+            urine          = #{waterUrine},
+            waist         = #{waterWaist}, sexuality = #{waterSexuality},
+            spermatorrhea = #{waterSpermatorrhea},
+            menstruate    = #{waterMenstruate}, leucorrhea = #{waterLeucorrhea}, season = #{waterSeason},
+            qualitative_a      = #{qualitativeA}, qualitative_k = #{qualitativeK}
+        WHERE phone = #{phone};
+    </update>
+
+    <delete id="deleteItem" parameterType="java.lang.String">
+        DELETE FROM item_wood WHERE phone = #{phone};
+        DELETE FROM item_fire WHERE phone = #{phone};
+        DELETE FROM item_earth WHERE phone = #{phone};
+        DELETE FROM item_metal WHERE phone = #{phone};
+        DELETE FROM item_water WHERE phone = #{phone};
+    </delete>
+</mapper>

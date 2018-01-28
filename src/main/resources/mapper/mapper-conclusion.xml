@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cdutcm.dao.ConclusionDao">
+    <select id="selectConclusion" resultType="java.lang.String">
+        SELECT phone
+        FROM conclusion
+        <where>
+            <if test="name != null">real_name = #{name}</if>
+            <if test="phone != null">AND phone = #{phone}</if>
+        </where>
+    </select>
+
+    <resultMap id="conclusion" type="com.cdutcm.entity.Conclusion">
+        <result property="name" column="real_name"/>
+    </resultMap>
+    <select id="printConclusion" resultMap="conclusion">
+        SELECT
+        phone,
+        real_name,
+        sex,
+        solar_birth,
+        lunar_birth,
+        inborn_genus,
+        inborn_lack,
+        acquire_genus,
+        acquire_lack,
+        yang_value1,
+        yin_value1,
+        yang_value2,
+        yin_value2,
+        yang_value3,
+        yin_value3
+        FROM conclusion;
+    </select>
+
+    <insert id="saveRespondent" parameterType="com.cdutcm.entity.Conclusion" useGeneratedKeys="true">
+        INSERT INTO conclusion (phone, real_name, sex, solar_birth, lunar_birth, acquire_genus, acquire_lack)
+        VALUES (#{phone}, #{name}, #{sex}, #{solarBirth}, #{lunarBirth}, #{acquireGenus}, #{acquireLack});
+    </insert>
+
+    <update id="setYinYangValue" parameterType="com.cdutcm.entity.Conclusion">
+        UPDATE conclusion
+        <set>
+            <if test="yangValue1 != null">yang_value1 = #{yangValue1},</if>
+            <if test="yinValue1 != null">yin_value1 = #{yinValue1},</if>
+            <if test="yangValue2 != null">yang_value2 = #{yangValue2},</if>
+            <if test="yinValue2 != null">yin_value2 = #{yinValue2},</if>
+            <if test="yangValue3 != null">yang_value3 = #{yangValue3},</if>
+            <if test="yinValue3 != null">yin_value3 = #{yinValue3},</if>
+        </set>
+        WHERE phone = #{phone};
+    </update>
+
+    <update id="updateRespondent_Acquire" parameterType="com.cdutcm.entity.Conclusion">
+        UPDATE conclusion
+        SET real_name     = #{name}, sex = #{sex}, solar_birth = #{solarBirth}, lunar_birth = #{lunarBirth},
+            acquire_genus = #{acquireGenus}, acquire_lack = #{acquireLack}
+        WHERE phone = #{phone};
+    </update>
+
+    <update id="clearYinYangValue" parameterType="java.lang.String">
+        UPDATE conclusion SET yang_value1 = NULL, yang_value2 = NULL, yang_value3 = NULL, yin_value1 = NULL, yin_value2 = NULL, yin_value3 = NULL WHERE phone = #{phone};
+    </update>
+
+    <delete id="deleteConclusion" parameterType="java.lang.String">
+        DELETE FROM conclusion WHERE phone = #{phone};
+    </delete>
+</mapper>

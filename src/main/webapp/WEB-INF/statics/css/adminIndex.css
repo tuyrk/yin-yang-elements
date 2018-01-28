@@ -1,0 +1,100 @@
+body {
+    font-family: "Microsoft YaHei UI";
+    background-color: #f5f9fc;
+}
+.adminIndexMian{
+    margin: 0 auto;
+    margin-top: 100px;
+    min-height: 450px;
+    width:95%;
+}
+.header {
+    height: 60px;
+    background: -webkit-linear-gradient(#f6f7f6, #f3f4f3); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#f6f7f6, #f3f4f3); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#f6f7f6, #f3f4f3); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#f6f7f6, #f3f4f3); /* 标准的语法 */
+}
+.header-left-logo{
+    margin: 7px 0 4px 10px;
+}
+.header-nav {
+    height: 25px;
+    background: -webkit-linear-gradient(#a4d2e5, #209ec6); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#a4d2e5, #209ec6); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#a4d2e5, #209ec6); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#a4d2e5, #209ec6); /* 标准的语法（必须放在最后） */
+}
+.header-nav .user{
+    display: inline-block;
+    height: 25px;
+}
+.header-nav .user .btn{
+    text-align: left;
+    border: 1px  rgba(255, 255, 255, 0) solid;
+    padding-top: 0px;
+    color: #233a46;
+    height: 23px;
+    font-size: 13px;
+    width: 100px;
+    background-color: rgba(255, 255, 255, 0);
+}
+.header-nav .user .btn:hover,
+.header-nav .user .btn:focus,
+.header-nav .user .btn:active{
+    color:#a94442 ;
+    border: none;
+}
+.header-right-user {
+    margin-right: 20px;
+    line-height: 25px;
+
+}
+
+.header-right-user a, .header-right-user span {
+    font-size: 12px;
+    color: #b0e5ff
+}
+
+.header-right-user i {
+    color: #607d8b
+}
+/*tpls/admin/Css*/
+.main-content{
+    width: 70%;
+    margin-top: 10px;
+}
+
+.table td,.table th{
+    text-align: center;
+}
+#table-content td,#table-content th{
+    border: 1px solid #428bca;
+    color: #233a46;
+}
+.pagination{
+    margin: 0;
+}
+#default{
+    color: #2a6496;
+    background-color: #f5f9fc;
+    border-color: #dddddd; ;
+}
+.exchangeActive
+{
+    color:#0eaaf2;
+    background-color: #fff;
+    border-bottom: 1px solid #ffffff;
+}
+.footer{
+    height: 40px;
+    background-color: #e7e7e7;
+    text-align: center;
+    line-height: 40px;
+    z-index: 1040;
+    font-size: 0.5rem;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}

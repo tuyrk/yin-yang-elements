@@ -1,0 +1,48 @@
+.flex-alert {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    position: fixed;
+    top:10px;
+    left: 0;
+    width:100%;
+    z-index: 10001;
+}
+#shake {
+    display: none;
+}
+.shake {
+    width: 100%;
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+    text-align: center;
+    font-size: 14px;
+    padding: 10px;
+    animation: zoom 1s;
+    -webkit-animation: zoom 1s;
+}
+@keyframes zoom {
+    from, to {
+        transform: translate3d(0, 0, 0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translate3d(-10px, 0, 0);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translate3d(10px, 0, 0);
+    }
+}
+
+@-webkit-keyframes zoom {
+    from, to {
+        -webkit-transform: translate3d(0, 0, 0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        -webkit-transform: translate3d(-10px, 0, 0);
+    }
+    20%, 40%, 60%, 80% {
+        -webkit-transform: translate3d(10px, 0, 0);
+    }
+}

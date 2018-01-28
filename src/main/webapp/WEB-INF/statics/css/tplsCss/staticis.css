@@ -1,0 +1,110 @@
+
+.staticis-main {
+    width: 97%;
+    min-height: 550px;
+    margin: 25px auto;
+}
+
+.staticis-header {
+    min-height: 45px;
+    background: #FFFFFF;
+    color: #37847c;
+    padding-bottom: 0.5%;
+}
+.staticis-header .form-control {
+    display: inline-block;
+}
+
+.staticis-header .header-p {
+    font-size: 1.1em;
+    color: #0eaaf2;
+    padding: 1% 0 0 0.7%;
+    width: 80%;
+}
+
+.header-content {
+    display: inline-block;
+    width: 80%;
+}
+
+.header-content-1, .header-content-2 {
+    display: inline-block;
+    width: 30%;
+    margin-top: 10px;
+    margin-left: 2%;
+}
+
+.header-btn {
+    text-align: right;
+    margin-top: 1%;
+}
+
+.header-content-2 {
+    width: 50%;
+}
+
+.staticis-header input[type='button']{
+    background-color: #0b95a9;
+    border: #0b95a9;
+    font-size: 12px;
+    margin-top: -5px;
+}
+
+.staticis-content {
+    min-height: 470px;
+    background-color: #FFFFFF;
+    margin-top: 20px;
+    color: #37847c;
+    padding: 10px;
+}
+.staticis-content .content-p {
+    font-size: 1.1em;
+    color: #0eaaf2;
+}
+.staticis-content .item{
+    padding-left: 2%;
+}
+.staticis-content .item span {
+    color: #0eaaf2;
+    font-size: 1.1em;
+    display: block;
+
+}
+
+.staticis-content .item:first-child {
+    margin-top: 2%;
+}
+
+.radio {
+    display: block;
+}
+
+.radio-block {
+    display: block;
+}
+
+.staticis-content .item div {
+    margin-right: 2%;
+}
+
+.nextStep {
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    width: 15%;
+    margin: 2% auto;
+    background-color: #37847c;
+    color: whitesmoke;
+}
+
+.nextStep:hover,
+.nextStep:active,
+.nextStep:focus,
+.staticis-header input[type='button']:hover,
+.staticis-header input[type='button']:active,
+.staticis-header input[type='button']:focus {
+    background-color: #a94442;
+    border: #a94442;
+    text-decoration: none;
+    color: whitesmoke;
+}
