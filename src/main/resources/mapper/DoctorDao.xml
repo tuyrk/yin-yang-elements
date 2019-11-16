@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cdutcm.elements.dao.DoctorDao">
+    <insert id="insertDoctor" parameterType="com.cdutcm.elements.entity.Doctor">
+        INSERT INTO doctor (d_id, username, password, realname, mail, state)
+        VALUES (#{dId}, #{username}, #{password}, #{realname}, #{mail}, #{state});
+    </insert>
+    <delete id="deleteDoctor" parameterType="com.cdutcm.elements.entity.Doctor">
+        <if test="doctor != null">
+            DELETE FROM doctor WHERE 1 = 1
+            <if test="doctor != null"><include refid="condition"/></if>
+        </if>
+    </delete>
+    <update id="updateDoctor" parameterType="com.cdutcm.elements.entity.Doctor">
+        update doctor
+        <set>
+            <if test="username != null and username != ''">username = #{username}</if>
+            <if test="password != null and password != ''">password = #{password}</if>
+            <if test="realname != null and realname != ''">realname = #{realname}</if>
+            <if test="mail != null and mail != ''">mail = #{mail}</if>
+            <if test="state != null">state = #{state}</if>
+        </set>
+        <where>
+            <if test="dId != null">d_id = #{dId}</if>
+        </where>
+    </update>
+    <select id="selectDoctor" parameterType="com.cdutcm.elements.entity.Doctor"
+            resultType="com.cdutcm.elements.entity.Doctor">
+        SELECT * FROM doctor WHERE 1 = 1
+        <if test="doctor != null"><include refid="condition"/></if>
+    </select>
+    <select id="selectDoctorByUsernameOrMail" resultType="com.cdutcm.elements.entity.Doctor">
+        select *
+        from doctor
+        <where>
+            <if test="username != null and username != ''">or username = #{username}</if>
+            <if test="mail != null and mail != ''">or mail = #{mail}</if>
+        </where>
+    </select>
+    <sql id="condition">
+        <if test="doctor.dId != null and doctor.dId != ''">and d_id = #{doctor.dId}</if>
+        <if test="doctor.username != null and doctor.username != ''">and username = #{doctor.username}</if>
+        <if test="doctor.password != null and doctor.password != ''">and password = #{doctor.password}</if>
+        <if test="doctor.realname != null and doctor.realname != ''">and realname = #{doctor.realname}</if>
+        <if test="doctor.mail != null and doctor.mail != ''">and mail = #{doctor.mail}</if>
+        <if test="doctor.state != null and doctor.state != ''">and state = #{doctor.state}</if>
+    </sql>
+</mapper>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cdutcm.elements.dao.InbornDao">
+    <insert id="insertInborn" parameterType="com.cdutcm.elements.entity.Inborn">
+        INSERT INTO inborn (c_id, phone, name, sex, solar_birth, lunar_birth, horoscope, wood, fire, earth, metal, water, inborn)
+        VALUES (#{cId}, #{phone}, #{name}, #{sex}, #{solarBirth}, #{lunarBirth}, #{horoscope}, #{wood}, #{fire},
+                        #{earth}, #{metal}, #{water}, #{inborn});
+    </insert>
+    <delete id="deleteInborn" parameterType="com.cdutcm.elements.entity.Inborn">
+        <if test="inborn != null">
+            DELETE FROM inborn WHERE 1 = 1
+            <if test="inborn != null">
+                <include refid="condition"/>
+            </if>
+        </if>
+    </delete>
+    <update id="updateInborn" parameterType="com.cdutcm.elements.entity.Inborn">
+        update inborn
+        <set>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="sex != null and sex != ''">sex = #{sex},</if>
+            <if test="solarBirth != null and solarBirth != ''">solar_birth = #{solarBirth},</if>
+            <if test="lunarBirth != null and lunarBirth != ''">lunar_birth = #{lunarBirth},</if>
+            <if test="horoscope != null and horoscope != ''">horoscope = #{horoscope},</if>
+            <if test="wood != null">wood = #{wood},</if>
+            <if test="fire != null">fire = #{fire},</if>
+            <if test="earth != null">earth = #{earth},</if>
+            <if test="metal != null">metal = #{metal},</if>
+            <if test="water != null">water = #{water},</if>
+            <if test="inborn != null and inborn != ''">inborn = #{inborn},</if>
+        </set>
+        <where>
+            <if test="phone != null and phone != ''">phone = #{phone}</if>
+        </where>
+    </update>
+    <select id="selectInborn" parameterType="com.cdutcm.elements.entity.Inborn"
+            resultType="com.cdutcm.elements.entity.Inborn">
+        SELECT * FROM inborn WHERE 1 = 1
+        <if test="inborn != null">
+            <include refid="condition"/>
+        </if>
+    </select>
+    <sql id="condition">
+        <if test="inborn.cId != null">and c_id = #{inborn.cId}</if>
+        <if test="inborn.phone != null and inborn.phone != ''">and phone = #{inborn.phone}</if>
+        <if test="inborn.name != null and inborn.name != ''">and name = #{inborn.name}</if>
+        <if test="inborn.sex != null and inborn.sex != ''">and sex = #{inborn.sex}</if>
+        <if test="inborn.solarBirth != null and inborn.solarBirth != ''">
+            and solar_birth = #{inborn.solarBirth}
+        </if>
+        <if test="inborn.lunarBirth != null and inborn.lunarBirth != ''">
+            and lunar_birth = #{inborn.lunarBirth}
+        </if>
+        <if test="inborn.horoscope != null and inborn.horoscope != ''">and horoscope = #{inborn.horoscope}
+        </if>
+        <if test="inborn.wood != null">and wood = #{inborn.wood}</if>
+        <if test="inborn.fire != null">and fire = #{inborn.fire}</if>
+        <if test="inborn.earth != null">and earth = #{inborn.earth}</if>
+        <if test="inborn.metal != null">and metal = #{inborn.metal}</if>
+        <if test="inborn.water != null">and water = #{inborn.water}</if>
+        <if test="inborn.inborn != null and inborn.inborn != ''">
+            and inborn = #{inborn.inborn}
+        </if>
+    </sql>
+</mapper>

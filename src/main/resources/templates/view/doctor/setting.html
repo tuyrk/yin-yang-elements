@@ -1,0 +1,188 @@
+<!doctype html>
+<html ng-app="settingApp" ng-controller="settingCtrl"  ng-cloak>
+<head>
+    <meta charset="UTF-8"/>
+    <title>阴阳五行人体质研究</title>
+    <link rel="icon" href="images/login/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="images/login/logo.png" type="image/x-icon"/>
+    <link rel="stylesheet" href="css/lib/bootstrap.css">
+    <link rel="stylesheet" href="css/lib/fonts/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/alert.css">
+    <link rel="stylesheet" href="css/tplsCss/xianTian.css">
+    <style>
+        .modifyOutMain {
+            width: 60%;
+            height: 300px;
+            margin: 0 auto;
+            margin-top: 5%;
+            padding: 5% 0;
+            border-top: 1px solid #7b8b8d;
+            border-bottom: 1px solid #7b8b8d;
+        }
+        .modifyMain .error {
+            border: 1px red solid;
+        }
+        .modifyMain .success {
+            border: 1px solid #d0f2dc;
+        }
+        .modifyMain {
+            width: 60%;
+            margin: 0 auto;
+        }
+        .modifyPasswordP {
+            text-align: center;
+            margin-bottom: 5%;
+            color: #7b8b8d;
+            font-size: 1.7rem;
+        }
+        .group-input {
+            margin-bottom: 2.5%;
+        }
+        .group-input span {
+            color: dimgrey;
+            display: inline-block;
+            width: 30%;
+            text-align: right;
+
+        }
+        .group-input .form-control {
+            width: 50%;
+            display: inline-block;
+        }
+        .group-input .fa-check-circle {
+            color: green;
+        }
+        .group-input p {
+            color: #a94442;
+            margin: 0;
+            margin-left: 31%;
+            font-size: 10px;
+        }
+        .group-input .setBtn {
+            margin-left: 31%;
+            width: 50%;
+
+        }
+        .group-input .setBtn:hover,
+        .group-input .setBtn:focus,
+        .group-input .setBtn:active {
+            background-color: #a94442;
+            border: #a94442;
+        }
+        /*alert css*/
+        .flex-alert {
+            top: 100px;
+            padding-left:150px;
+        }
+        .shake {
+            width: 50%;
+        }
+        /*alert css end */
+    </style>
+</head>
+<body>
+<!--页面头部-->
+<div class="navbar navbar-default navbar-fixed-top top" role="navigation">
+    <div class="container-fluid">
+        <!--左面Logo显示-->
+        <div class="header">
+            <div class=" header-left-logo">
+                <img src="images/index/indexLogo-sm.png" alt="indexLogo" class="img-responsive">
+            </div>
+        </div>
+        <!--右边用户按钮下拉提示-->
+        <div class="header-nav">
+            <div class="pull-right header-right-user">
+                <i class="fa fa-user fa-lg" aria-hidden="true" style="vertical-align: middle"></i>
+                <span>欢迎登陆:</span>
+                <div class="dropdown user">
+                    <button type="button"  style="padding-left:0" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+                        <span id="dropdownMenu1_realname"></span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="modify">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true" style="margin-right: 2px;"></i>修改密码
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="#" ng-click="exitSystem()">
+                                <i class="fa fa-power-off" aria-hidden="true" style="cursor:pointer;margin-right: 3px;"></i>退出系统
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--中间主内容-->
+<div class="container-f row main">
+    <!--左边导航菜单-->
+    <div class="col-xs-2 main-left-menuBar ulCilck" id="main-left-menuBar">
+        <!--体质研究-->
+        <div class="functionMenu">
+            <a class="list-group-item active" style="border-top: none">体质研究</a>
+            <a href="scada" class="list-group-item list-exchange"><i class="fa fa-hourglass-start" aria-hidden="true"></i>数据采集</a>
+            <a href="inborn" class="list-group-item list-exchange"><i class="fa fa-hourglass-start" aria-hidden="true"></i>先天五行</a>
+            <a href="acquire" class="list-group-item list-exchange"><i class="fa fa-hourglass-end" aria-hidden="true"></i>后天五行</a>
+        </div>
+        <!--个人管理-->
+        <div class="usersMenu">
+            <a class="list-group-item active" style="border-top: none">个人管理</a>
+            <a href="#" class="list-group-item list-exchange exchangeActive" style="cursor: pointer"><i class="fa fa-cogs" aria-hidden="true"></i>个人设置</a>
+            <a href="modify" id="list-modify-Password" class="list-group-item"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改密码</a>
+            <a ng-click="exitSystem()" style="cursor: pointer" class="list-group-item"><i class="fa fa-power-off" aria-hidden="true"></i>退出系统</a>
+        </div>
+    </div>
+    <!--右边路由显示子页面-->
+    <div class="col-xs-10 main-right-detail" id="main-right-detail">
+        <!--<div class="flex-alert">
+            <div class="flex-item" id="shake"><span></span></div>
+        </div>-->
+        <!--AngularJs 路由显示子页面-->
+        <div class="modifyOutMain">
+            <div class="modifyMain">
+                <!--晃动提示-->
+                <div class="flex-alert"><div class="flex-item" id="shake"></div></div>
+                <p class="modifyPasswordP">个人设置</p>
+                <form action="#" name="setForm"  novalidate ng-cloak class="ng-cloak">
+                    <!--旧邮箱-->
+                    <div class="group-input">
+                        <span>旧邮箱：</span>
+                        <input type="email" class="form-control" id="oldEmail" value="" disabled>
+                    </div>
+                    <!--新邮箱-->
+                    <div class="group-input">
+                        <span>新邮箱：</span>
+                        <input type="email" class="form-control" name="email" id="email" required
+                               ng-model="user.email"
+                               ng-class="showErrorCss(setForm.email)"
+                               ng-pattern="/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/">
+                        <i class="fa fa-check-circle" aria-hidden="true" ng-if="showSuccessIcon(setForm.email)"></i>
+                        <p ng-if="showErrorMessage(setForm.email,'required')">
+                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>邮箱不能为空</p>
+                        <p ng-if="showErrorMessage(setForm.email,'pattern')">
+                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>请输入合法的邮箱</p>
+                    </div>
+                    <div class="group-input" style="margin-bottom: 0">
+                        <input type="button" class="btn btn-primary setBtn" name="setBtn"
+                               ng-disabled="!setForm.$valid"
+                               value="确认修改" ng-click="modify('email')">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--尾注-->
+<div class="footer">&copy;阴阳五行人体质研究</div>
+<script src="js/lib/jquery-1.11.1.min.js"></script>
+<script src="js/lib/bootstrap.min.js"></script>
+<script src="js/lib/angular.min.js"></script>
+<script src="js/setting.js"></script>
+</body>
+</html>
+

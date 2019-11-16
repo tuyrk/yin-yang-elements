@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cdutcm.elements.dao.AdminDao">
+    <insert id="insertAdmin" parameterType="com.cdutcm.elements.entity.Admin">
+        INSERT INTO admin (a_id, username, password, power) VALUES (#{aId}, #{username}, #{password}, #{power});
+    </insert>
+    <delete id="deleteAdmin" parameterType="com.cdutcm.elements.entity.Admin">
+        <if test="admin != null">
+            DELETE FROM admin WHERE 1 = 1
+            <if test="admin != null"><include refid="condition"/></if>
+        </if>
+    </delete>
+    <update id="updateAdmin" parameterType="com.cdutcm.elements.entity.Admin">
+        update admin
+        <set>
+            <if test="username = null and username != ''">username #{username},</if>
+            <if test="password = null and password != ''">password #{password},</if>
+            <if test="power = null">power #{power},</if>
+        </set>
+        <where>
+            <if test="aId != null">a_id = #{aId}</if>
+        </where>
+    </update>
+    <select id="selectAdmin" parameterType="com.cdutcm.elements.entity.Admin"
+            resultType="com.cdutcm.elements.entity.Admin">
+        SELECT * FROM admin WHERE 1 = 1
+        <if test="admin != null"><include refid="condition"/></if>
+    </select>
+    <sql id="condition">
+        <if test="admin.aId != null  and admin.aId != ''">and a_id = #{admin.aId}</if>
+        <if test="admin.username != null and admin.username != ''">and username = #{admin.username}</if>
+        <if test="admin.password != null and admin.password != ''">and password = #{admin.password}</if>
+        <if test="admin.power != null and admin.power != ''">and power = #{admin.power}</if>
+    </sql>
+</mapper>

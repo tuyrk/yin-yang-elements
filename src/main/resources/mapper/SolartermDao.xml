@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cdutcm.elements.dao.SolartermDao">
+
+    <insert id="saveSolarterm">
+        insert into solarterm (solarterm, date) values (#{solarterm}, #{date});
+    </insert>
+
+    <select id="selectLichunByYear" resultType="java.util.Date">
+        SELECT date FROM solarterm WHERE solarterm = '立春' AND date_format(date, '%Y') = #{_parameter}
+    </select>
+
+    <select id="selectSolartermByDate" resultType="com.cdutcm.elements.entity.Solarterm">
+        SELECT * FROM solarterm WHERE date > #{_parameter} LIMIT 1;
+    </select>
+
+    <select id="selectDateByID" resultType="java.util.Date">
+        SELECT date FROM solarterm WHERE id = #{_parameter}
+    </select>
+</mapper>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cdutcm.elements.dao.EAQDao">
+    <insert id="insertEAQ" parameterType="com.cdutcm.elements.entity.EAQ">
+        INSERT INTO e_a_q (e_id, phone, p_f, p_p, v_s, t_m, f_m, s_m, g_m, w_m, h_s, h_d)
+        VALUES (#{eId}, #{phone}, #{pF}, #{pP}, #{vS}, #{tM}, #{fM}, #{sM}, #{gM}, #{wM}, #{hS}, #{hD});
+    </insert>
+    <delete id="deleteEAQ" parameterType="com.cdutcm.elements.entity.EAQ">
+        <if test="eaq != null">
+            DELETE FROM e_a_q WHERE 1 = 1
+            <if test="eaq != null">
+                <include refid="condition"/>
+            </if>
+        </if>
+    </delete>
+    <update id="updateEAQ" parameterType="com.cdutcm.elements.entity.EAQ">
+        update e_a_q
+        <set>
+            <if test="pF != null and pF != ''">p_f = #{pF},</if>
+            <if test="pP != null and pP != ''">p_p = #{pP},</if>
+            <if test="vS != null and vS != ''">v_s = #{vS},</if>
+            <if test="tM != null and tM != ''">t_m = #{tM},</if>
+            <if test="fM != null and fM != ''">f_m = #{fM},</if>
+            <if test="sM != null and sM != ''">s_m = #{sM},</if>
+            <if test="gM != null and gM != ''">g_m = #{gM},</if>
+            <if test="wM != null and wM != ''">w_m = #{wM},</if>
+            <if test="hS != null and hS != ''">h_s = #{hS},</if>
+            <if test="hD != null and hD != ''">h_d = #{hD}</if>
+        </set>
+        <where>
+            <if test="phone != null and phone != ''">phone = #{phone}</if>
+        </where>
+    </update>
+    <select id="selectEAQByEaq" parameterType="com.cdutcm.elements.entity.EAQ"
+            resultType="com.cdutcm.elements.entity.EAQ">
+        SELECT * FROM e_a_q WHERE 1 = 1
+        <if test="eaq != null">
+            <include refid="condition"/>
+        </if>
+    </select>
+    <select id="selectEAQByPhone" parameterType="java.lang.String" resultType="com.cdutcm.elements.entity.EAQ">
+        SELECT *
+        FROM e_a_q
+        WHERE phone = #{_parameter};
+    </select>
+    <sql id="condition">
+        <if test="eaq.eId != null and eaq.eId != ''">and e_id = #{eaq.eId}</if>
+        <if test="eaq.phone != null and eaq.phone != ''">and phone = #{eaq.phone}</if>
+        <if test="eaq.pF != null and eaq.pF != ''">and p_f = #{eaq.pF}</if>
+        <if test="eaq.pP != null and eaq.pP != ''">and p_p = #{eaq.pP}</if>
+        <if test="eaq.vS != null and eaq.vS != ''">and v_s = #{eaq.vS}</if>
+        <if test="eaq.tM != null and eaq.tM != ''">and t_m = #{eaq.tM}</if>
+        <if test="eaq.fM != null and eaq.fM != ''">and f_m = #{eaq.fM}</if>
+        <if test="eaq.sM != null and eaq.sM != ''">and s_m = #{eaq.sM}</if>
+        <if test="eaq.gM != null and eaq.gM != ''">and g_m = #{eaq.gM}</if>
+        <if test="eaq.wM != null and eaq.wM != ''">and w_m = #{eaq.wM}</if>
+        <if test="eaq.hS != null and eaq.hS != ''">and h_s = #{eaq.hS}</if>
+        <if test="eaq.hD != null and eaq.hD != ''">and h_d = #{eaq.hD}</if>
+    </sql>
+</mapper>

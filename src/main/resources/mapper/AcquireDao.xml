@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cdutcm.elements.dao.AcquireDao">
+    <insert id="insertAcquire" parameterType="com.cdutcm.elements.entity.Acquire">
+        INSERT INTO acquire (id, phone, name, wood, fire, earth, metal, water, yin_yang_wood, yin_yang_fire, yin_yang_earth, yin_yang_metal, yin_yang_water, acquire)
+        VALUES
+            (#{id}, #{phone}, #{name}, #{wood}, #{fire}, #{earth}, #{metal}, #{water}, #{yinYangWood}, #{yinYangFire},
+                    #{yinYangEarth}, #{yinYangMetal}, #{yinYangWater}, #{acquire});
+
+    </insert>
+    <delete id="deleteAcquire" parameterType="com.cdutcm.elements.entity.Acquire">
+        <if test="acquire != null">
+            DELETE FROM acquire WHERE 1 = 1
+            <if test="acquire != null">
+                <include refid="condition"/>
+            </if>
+        </if>
+    </delete>
+
+    <update id="updateAcquire" parameterType="com.cdutcm.elements.entity.Acquire">
+        UPDATE acquire
+        <set>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="wood != null">wood = #{wood},</if>
+            <if test="fire != null">fire = #{fire},</if>
+            <if test="earth != null">earth = #{earth},</if>
+            <if test="metal != null">metal = #{metal},</if>
+            <if test="water != null">water = #{water},</if>
+            <if test="yinYangWood != null">yin_yang_wood = #{yinYangWood},</if>
+            <if test="yinYangFire != null">yin_yang_fire = #{yinYangFire},</if>
+            <if test="yinYangEarth != null">yin_yang_earth = #{yinYangEarth},</if>
+            <if test="yinYangMetal != null">yin_yang_metal = #{yinYangMetal},</if>
+            <if test="yinYangWater != null">yin_yang_water = #{yinYangWater},</if>
+            <if test="acquire != null and acquire != ''">acquire = #{acquire},</if>
+        </set>
+        <where>
+            <if test="phone != null and phone != ''">phone = #{phone}</if>
+        </where>
+    </update>
+
+    <select id="selectAcquire" parameterType="com.cdutcm.elements.entity.Acquire"
+            resultType="com.cdutcm.elements.entity.Acquire">
+        SELECT * FROM acquire WHERE 1 = 1
+        <if test="acquire != null">
+            <include refid="condition"/>
+        </if>
+    </select>
+    <sql id="condition">
+        <if test="acquire.id != null">and id = #{acquire.id}</if>
+        <if test="acquire.phone != null and acquire.phone != ''">and phone = #{acquire.phone}</if>
+        <if test="acquire.name != null and acquire.name != ''">and name = #{acquire.name}</if>
+        <if test="acquire.wood != null">and wood = #{acquire.wood}</if>
+        <if test="acquire.fire != null">and fire = #{acquire.fire}</if>
+        <if test="acquire.earth != null">and earth = #{acquire.earth}</if>
+        <if test="acquire.metal != null">and metal = #{acquire.metal}</if>
+        <if test="acquire.water != null">and water = #{acquire.water}</if>
+        <if test="acquire.yinYangWood != null">and yin_yang_wood = #{acquire.yinYangWood}</if>
+        <if test="acquire.yinYangFire != null">and yin_yang_fire = #{acquire.yinYangFire}</if>
+        <if test="acquire.yinYangEarth != null">and yin_yang_earth = #{acquire.yinYangEarth}</if>
+        <if test="acquire.yinYangMetal != null">and yin_yang_metal = #{acquire.yinYangMetal}</if>
+        <if test="acquire.yinYangWater != null">and yin_yang_water = #{acquire.yinYangWater}</if>
+        <if test="acquire.acquire != null and acquire.acquire != ''">and acquire = #{acquire.acquire}</if>
+    </sql>
+</mapper>

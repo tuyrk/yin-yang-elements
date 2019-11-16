@@ -1,0 +1,1099 @@
+<!doctype html>
+<html ng-app="indexApp" ng-controller="indexCtrl">
+<head>
+    <meta charset="UTF-8">
+    <title>阴阳五行人体质研究</title>
+    <link rel="icon" href="images/login/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="images/login/logo.png"
+          type="image/x-icon"/>
+    <link rel="stylesheet" href="css/lib/bootstrap.css">
+    <link rel="stylesheet" href="css/lib/fonts/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/tplsCss/staticis.css">
+    <link rel="stylesheet" href="./js/calendar/rui-datepicker.css">
+    <script src="./js/calendar/rui-datepicker.js"></script>
+</head>
+<body>
+<!--页面头部-->
+<div class="navbar navbar-default navbar-fixed-top top" role="navigation">
+    <div class="container-fluid">
+        <!--左面Logo显示-->
+        <div class="header">
+            <div class=" header-left-logo">
+                <img src="images/index/indexLogo-sm.png" alt="indexLogo"
+                     class="img-responsive">
+            </div>
+        </div>
+        <!--右边用户按钮下拉提示-->
+        <div class="header-nav">
+            <div class="pull-right header-right-user">
+                <i class="fa fa-user fa-lg" aria-hidden="true" style="vertical-align: middle"></i>
+                <span>欢迎登陆:</span>
+                <div class="dropdown user">
+                    <button type="button" class="btn dropdown-toggle" id="dropdownMenu1"
+                            data-toggle="dropdown" style="padding-left:0">
+                        <span id="dropdownMenu1_realname"></span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1"
+                               href="modify">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true" style="margin-right: 2px;"></i>修改密码</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" style="cursor:pointer;" ng-click="exitSystem()">
+                                <i class="fa fa-power-off" aria-hidden="true" style="margin-right: 3px;"></i>退出系统</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--中间主内容-->
+<div class="container-f row main">
+    <!--左边导航菜单-->
+    <div class="col-xs-2 main-left-menuBar ulCilck" id="main-left-menuBar">
+        <!--体质研究-->
+        <div class="functionMenu">
+            <a class="list-group-item active" style="border-top: none">体质研究</a>
+            <a href='#' class="list-group-item list-exchange exchangeActive" style="cursor: pointer"><i
+                    class="fa fa-hourglass-start" aria-hidden="true"></i>数据采集</a>
+            <a href="inborn" class="list-group-item list-exchange"><i
+                    class="fa fa-hourglass-start" aria-hidden="true"></i>先天五行</a>
+            <a href="acquire" class="list-group-item list-exchange"><i
+                    class="fa fa-hourglass-end" aria-hidden="true"></i>后天五行</a>
+        </div>
+        <!--个人管理-->
+        <div class="usersMenu">
+            <a class="list-group-item active" style="border-top: none">个人管理</a>
+            <a href="setting" class="list-group-item list-exchange"><i
+                    class="fa fa-cogs" aria-hidden="true"></i>个人设置</a>
+            <a href="modify" id="list-modify-Password"
+               class="list-group-item"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改密码</a>
+            <a ng-click="exitSystem()"  style="cursor: pointer" class="list-group-item"><i class="fa fa-power-off"
+                                                                                           aria-hidden="true"></i>退出系统</a>
+        </div>
+    </div>
+    <!--右边路由显示子页面-->
+    <div class="col-xs-10 main-right-detail" id="main-right-detail">
+        <div style="text-align: center;color: red"></div>
+        <!--数据采集主内容-->
+        <div class="staticis-main">
+            <form id="indexForm"  name="indexForm" novalidate>
+                <!--头部表单-->
+                <div class="staticis-header">
+                    <div class="header-p"><b>基本信息</b></div>
+                    <hr>
+                    <div class="header-content">
+                        <!--姓名、性别-->
+                        <div class="header-content-1">
+                            <div>
+                                <span>姓名:</span>
+                                <input type="text" id="name" name="name" class="form-control" value="" required style="width: 100px;">
+                            </div>
+                            <div style="margin-top: 2%">
+                                <span>性别:</span>
+                                <select name="sex" id="sex" class="form-control" style="width: 100px;" ng-click="filterItem()">
+                                    <option value="请选择">请选择</option>
+                                    <option value="男">男</option>
+                                    <option value="女">女</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!--出生日期、身份证号-->
+                        <div class="header-content-2">
+                            <div>
+                                <span>出生日期:</span>
+                                <input id="birthday" type="text" class="form-control_js_date" data-confirm="false" data-toid-date="date1" data-toid-hour="hour1" name="input_date" data-hour="2" placeholder="请输入日期" readonly="readonly">
+                                <input type="hidden" id="date1" name="date">
+                                <input type="hidden" id="hour1" name="hour">
+                                <!--<select name="birth.minute" id="selectMin" class="form-control" style="width:75px;"
+                                        required>
+                                </select>&nbsp;分-->
+                            </div>
+                            <div style="margin-top: 2%">
+                                <span>手机号码:</span>
+                                <span id="contextPath" style="display: none">..</span>
+                                <input type="hidden" id="status" name="status" value="">
+                                <input type="text" id="phone" name="phone" class="form-control" value=""
+                                       required style="width: 210px;">
+                            </div>
+                        </div>
+                    </div>
+                    <!--执行命令按钮组-->
+                    <div class="header-btn">
+                        <span class="header-btn-group">
+                                <input type="button" class="btn btn-primary" value="查询" ng-click="queryData()">
+                        </span>
+                        <span class="header-btn-group">
+                                <input type="button" class="btn btn-primary" value="删除" ng-click="deleteData()">
+                        </span>
+                        <span class="header-btn-group" style="margin-right: 10px;">
+                            <a  ng-click="exportData()">
+                                <input type="button" class="btn btn-primary" value="导出数据"></a>
+                        </span>
+                    </div>
+                </div>
+                <!--页面主内容-分类条目-->
+                <div class="staticis-content">
+                    <div class="content-p"><b>分类条目</b></div>
+                    <hr>
+                    <!--脸形特点-->
+                    <div class="item">
+                        <span>1.脸形特点</span>
+                        <div class="radio">
+                            <label><input type="radio" name="lianXing" value="A" >脸形上部宽、下部窄，面长瘦露骨</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="lianXing" value="B">脸形上部略尖、下部宽</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="lianXing" value="C">脸形圆，头大，蒜头鼻</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="lianXing" value="D">脸形方正，头小</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="lianXing" value="E">脸形宽，头大</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--面色特点-->
+                    <div class="item">
+                        <span>2.面色特点</span>
+                        <!--偏青色-->
+                        <div class="radio">
+                            <label><input type="radio" name="outmianSe" id="mianQingSe" value="A"  ng-click="showChildItem('mianSeA','mianSeChildItem','mianSe')">偏青色</label>
+                        </div>
+                        <!--偏青色 子选项-->
+                        <div class="item mianSeChildItem" id="mianSeA" style="margin: 15px 0;display: none">
+                            <div class="radio">
+                                <label><input type="radio" name="mianSe" value="Aa" >面色青，晦暗无光泽</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="mianSe" value="Ab">面色青，少光泽</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="mianSe" value="Ac">面色偏青</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="mianSe" value="Ad">面色青，有光泽</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="mianSe" value="Ae">面色青，泛红光</label>
+                            </div>
+                        </div>
+                        <!--偏红色-->
+                        <div class="radio">
+                            <label><input type="radio" name="outmianSe" id="mianHongSe" value="B" ng-click="showChildItem('mianSeB','mianSeChildItem','mianSe')">偏紅色</label>
+                        </div>
+                        <!--偏红色 子选项-->
+                        <div class="item mianSeChildItem" id="mianSeB" style="margin: 15px 0;display: none">
+                            <div class="radio">
+                                <label><input type="radio" name="mianSe" value="Ba">面色无华</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="mianSe" value="Bb">面色淡白，少光泽</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="mianSe" value="Bc">面色红润</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="mianSe" value="Bd">面色红，有光泽</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="mianSe" value="Be">满面红光</label>
+                            </div>
+                        </div>
+                        <!--偏黄色-->
+                        <div class="radio">
+                            <label><input type="radio" name="outmianSe" id="mianHuangSe" value="C"
+                                       ng-click="showChildItem('mianSeC','mianSeChildItem','mianSe')">偏黄色</label>
+                        </div>
+                        <!--偏黄色 子选项-->
+                        <div class="item mianSeChildItem" id="mianSeC" style="margin: 15px 0;display: none">
+                            <div class="radio">
+                                <label><input type="radio" name="mianSe" value="Ca">面色暗黄，无光泽</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="mianSe" value="Cb">面色黄，少光泽</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="mianSe" value="Cc">面色偏黄</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="mianSe" value="Cd">面色黄泛光</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="mianSe" value="Ce">面色黄，泛红光</label>
+                            </div>
+                        </div>
+                        <!--偏白色-->
+                        <div class="radio">
+                            <label><input type="radio" name="outmianSe" id="mianBaiSe" value="D"
+                                       ng-click="showChildItem('mianSeD','mianSeChildItem','mianSe')">偏白色</label>
+                        </div>
+                        <!--偏白色 子选项-->
+                        <div class="item mianSeChildItem" id="mianSeD" style="margin: 15px 0;display: none">
+                            <div class="radio">
+                                <label><input type="radio" name="mianSe" value="Da">面色苍白</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="mianSe" value="Db">面色淡白少光泽</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="mianSe" value="Dc">面色偏白</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="mianSe" value="Dd">面色白有光泽</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="mianSe" value="De">面色白泛红光</label>
+                            </div>
+                        </div>
+                        <!--偏黑色-->
+                        <div class="radio">
+                            <label><input type="radio" name="outmianSe" id="mianHeiSe" value="E"
+                                       ng-click="showChildItem('mianSeE','mianSeChildItem','mianSe')">偏黑色</label>
+                        </div>
+                        <!--偏黑色 子选项-->
+                        <div class="item mianSeChildItem" id="mianSeE" style="margin: 15px 0;display: none">
+                            <div class="radio">
+                                <label><input type="radio" name="mianSe" value="Ea">面色黑且暗淡无光</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="mianSe" value="Eb">面色黑少光泽</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="mianSe" value="Ec">面色偏黑</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="mianSe" value="Ed">面色黑有光泽</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="mianSe" value="Ee">面色黑泛红光</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--躯干特点-->
+                    <div class="item">
+                        <span>3.躯干特点</span>
+                        <div class="radio">
+                            <label><input type="radio" name="quGan" value="A" >身材瘦长</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="quGan" value="B">身材壮实，肩背肌肉丰满，体多丰盈</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="quGan" value="C">身材圆润，肩背圆，腹大</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="quGan" value="D">身材偏瘦，身段不高，肩背小，腹小</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="quGan" value="E">身材修长，肩背小，腹大</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--四肢特点-->
+                    <div class="item">
+                        <span>4.四肢特点</span>
+                        <div class="radio">
+                            <label><input type="radio" name="siZhi" value="A" >手足细长瘦</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="siZhi" value="B">手足根粗指尖</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="siZhi" value="C">手足小肉多</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="siZhi" value="D">手足小</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="siZhi" value="E">无特异</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--语音特点-->
+                    <div class="item">
+                        <span>5.语音特点</span>
+                        <div class="radio">
+                            <label><input type="radio" name="yuYin" value="A" >语音直而短，较响亮，角音</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="yuYin" value="B">语音尖锐多破音，徵音</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="yuYin" value="C">语音浑厚，宫音</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="yuYin" value="D">语音响亮，商音</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="yuYin" value="E">语音慢，羽音</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--心理特征-->
+                    <div class="item">
+                        <span>6.心理特征</span>
+                        <!--性格内向，善于思考，多愁善感-->
+                        <div class="radio radio-block">
+                            <label><input type="radio" name="outXingLi" value="A"  ng-click="showChildItem('xingLiA','xingLiChildItem','xingLi')">性格内向，善于思考，多愁善感</label>
+                        </div>
+                        <!--子选项 一-->
+                        <div class="item xingLiChildItem" id="xingLiA" style="margin: 15px 0;display: none">
+                            <div class="radio">
+                                <label><input type="radio" name="xingLi" value="Aa" >心胸狭小，消极忧虑，心情郁闷</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="xingLi" value="Ab">性格内向，善于思考，多愁善感</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="xingLi" value="Ac">性情急躁，忿忿不平，易于发怒</label>
+                            </div>
+                        </div>
+                        <!--性格外向，乐观善言，心宽忘忧-->
+                        <div class="radio radio-block">
+                            <label><input type="radio" name="outXingLi" value="B"
+                                       ng-click="showChildItem('xingLiB','xingLiChildItem','xingLi')">性格外向，乐观善言，心宽忘忧</label>
+                        </div>
+                        <!--子选项 二-->
+                        <div class="item xingLiChildItem" id="xingLiB" style="margin: 15px 0;display: none">
+                            <div class="radio">
+                                <label><input type="radio" name="xingLi" value="Ba">反应迟钝，喜虚荣，多猜忌，计较小事</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="xingLi" value="Bb">性格外向，乐观善言，心宽忘忧</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="xingLi" value="Bc">急躁多言，粗心大意，情绪波动，冲动易怒</label>
+                            </div>
+                        </div>
+                        <!--性格稳重，温厚冷静，不易冲动，有包容性-->
+                        <div class="radio radio-block">
+                            <label><input type="radio" name="outXingLi" value="C"
+                                       ng-click="showChildItem('xingLiC','xingLiChildItem','xingLi')">性格稳重，温厚冷静，不易冲动，有包容性</label>
+                        </div>
+                        <!--子选项 三-->
+                        <div class="item xingLiChildItem" id="xingLiC" style="margin: 15px 0;display: none">
+                            <div class="radio">
+                                <label><input type="radio" name="xingLi" value="Ca">性格呆板，寡言少语，喜忧思</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="xingLi" value="Cb">沉着稳重，性情温厚，冷静，不易冲动，具有包容性</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="xingLi" value="Cc">易怒冲动，好生闷气</label>
+                            </div>
+                        </div>
+                        <!--性格外向，喜欢竞争，严肃孤傲-->
+                        <div class="radio radio-block">
+                            <label><input type="radio" name="outXingLi" value="D"
+                                       ng-click="showChildItem('xingLiD','xingLiChildItem','xingLi')">性格外向，喜欢竞争，严肃孤傲</label>
+                        </div>
+                        <!--子选项 四-->
+                        <div class="item xingLiChildItem" id="xingLiD" style="margin: 15px 0;display: none">
+                            <div class="radio">
+                                <label><input type="radio" name="xingLi" value="Da">悲忧自扰，烦恼多多，牢骚满腹，情绪易失控</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="xingLi" value="Db">性格外向，喜欢竞争，严肃孤傲</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="xingLi" value="Dc">强调自我，争强好胜，易怒失控，有攻击性</label>
+                            </div>
+                        </div>
+                        <!--性格内向，安静沉稳、冷静智慧，行动迟缓-->
+                        <div class="radio radio-block">
+                            <label><input type="radio" name="outXingLi" id="xingLi-5" value="E"
+                                       ng-click="showChildItem('xingLiE','xingLiChildItem','xingLi')">性格内向，安静沉稳、冷静智慧，行动迟缓</label>
+                        </div>
+                        <!--子选项 五-->
+                        <div class="item xingLiChildItem" id="xingLiE" style="margin: 15px 0;display: none">
+                            <div class="radio">
+                                <label><input type="radio" name="xingLi" value="Ea">优柔寡断、多思多虑 ，胆小怕事，冷淡缓慢</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="xingLi" value="Eb">性格内向，安静沉稳，行动迟缓，冷静智慧</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="xingLi" value="Ec">情感丰富，性易烦闷，容易冲动</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--寒热-->
+                    <div class="item">
+                        <span>7.寒热</span>
+                        <div class="radio">
+                            <label><input type="radio" name="hanRe" value="A" >体寒，手足冰冷</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="hanRe" value="B">手足不温</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="hanRe" value="C">手足常温</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="hanRe" value="D">面部、手足微热</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="hanRe" value="E">怕热，手足发热</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--汗-->
+                    <div class="item">
+                        <span>8.汗</span>
+                        <div class="radio">
+                            <label><input type="radio" name="han" value="A" >时有自汗，活动后加重</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="han" value="B">偶有自汗</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="han" value="C">汗出正常</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="han" value="D">偶有夜间盗汗</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="han" value="E">易出汗</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="han" value="F">易出汗、汗量多</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="han" value="G">易夜寐盗汗、潮热</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--饮食口味-->
+                    <div class="item">
+                        <span>9.饮食口味</span>
+                        <div class="radio">
+                            <label><input type="radio" name="yinShiKouWei" value="A" >食欲不振，口淡无味，口不渴或渴喜热饮</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="yinShiKouWei" value="B">偶见食少，口淡，渴喜热饮</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="yinShiKouWei" value="C">饮食正常</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="yinShiKouWei" value="D">能食，喜冷饮，偶见口苦</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="yinShiKouWei" value="E">食欲旺盛，喜甜食，口臭，渴喜冷饮</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="yinShiKouWei" value="F">多食易饥（能食不胖），口苦咽干，喜酸</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="yinShiKouWei" value="G">能食，渴饮，渴喜冷饮，口苦</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="yinShiKouWei" value="H">多食易饥，嗜食肥甘厚味，口腻口臭，口干渴饮</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="yinShiKouWei" value="I">口燥咽干，口渴，喜冷饮</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--大便-->
+                    <div class="item">
+                        <span>10.大便</span>
+                        <div class="radio">
+                            <label><input type="radio" name="daBian" value="A" >大便溏薄</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="daBian" value="B">大便不成形</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="daBian" value="C">大便正常</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="daBian" value="D">偶见大便干结、不爽</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="daBian" value="E">大便秘结或粘滞不爽、酸臭</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--小便-->
+                    <div class="item">
+                        <span>11.小便</span>
+                        <div class="radio">
+                            <label><input type="radio" name="xiaoBian" value="A" >小便清，夜尿多</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="xiaoBian" value="B">小便清，偶有夜尿多</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="xiaoBian" value="C">小便正常</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="xiaoBian" value="D">小便黄</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="xiaoBian" value="E">小便短赤或骚臭味重</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--睡眠-->
+                    <div class="item">
+                        <span>12.睡眠</span>
+                        <div class="radio">
+                            <label><input type="radio" name="shuiMian" value="A" >多梦，睡后易惊醒</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="shuiMian" value="B">疲倦易睡，多梦，眠差</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="shuiMian" value="C">偶有多梦，睡后易醒</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="shuiMian" value="D">入睡快，睡后不易醒</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="shuiMian" value="E">不易入睡，睡中多梦</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="shuiMian" value="F">入睡困难，多梦难眠</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--精神状态-->
+                    <div class="item">
+                        <span>13.精神状态</span>
+                        <div class="radio">
+                            <label><input type="radio" name="jingShengZhuangTai" value="A" >精神萎靡，乏力易倦，懒言嗜卧</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="jingShengZhuangTai" value="B">表情淡漠，乏力少气，健忘</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="jingShengZhuangTai" value="C">时常气短乏力，声音低怯，动则益甚</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="jingShengZhuangTai" value="D">偶有倦怠乏力，懒言嗜卧</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="jingShengZhuangTai" value="E">精神饱满</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="jingShengZhuangTai" value="F">偶有急躁易怒 ，多言</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="jingShengZhuangTai" value="G">心烦、易怒，多言好动</label>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <!--木行人-->
+                    <!--头晕目眩-->
+                    <div class="item">
+                        <span>14.头部症状</span>
+                        <div class="radio">
+                            <label><input type="radio" name="touBu" value="A" >经常头晕目眩</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="touBu" value="B">偶有头晕目眩</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="touBu" value="C">无头目不适</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="touBu" value="D">偶有头晕胀痛</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="touBu" value="E">经常头晕胀痛</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--双目症状-->
+                    <div class="item">
+                        <span>15.双目症状</span>
+                        <div class="radio">
+                            <label><input type="radio" name="shuangMu" value="A" >双目昏涩，流冷泪，视物不清</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="shuangMu" value="B">双目干涩，流冷泪</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="shuangMu" value="C">双目有神，视力良好</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="shuangMu" value="D">双目红，眵多黄稠</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="shuangMu" value="E">双目红赤、胀痛，眵多黄稠</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--胸胁症状-->
+                    <div class="item">
+                        <span>16.胸胁症状</span>
+                        <div class="radio">
+                            <label><input type="radio" name="xiongXie" value="A" >经常胸胁胀闷或隐痛，喜太息</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="xiongXie" value="B">偶有胸胁胀闷或隐痛，喜太息</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="xiongXie" value="C">情志舒畅，胸胁无不适</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="xiongXie" value="D">偶有胸胁胀痛，或伴烧灼感</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="xiongXie" value="E">时常胸胁胀痛，或伴烧灼感</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--肢体症状-->
+                    <div class="item">
+                        <span>17.肢体症状</span>
+                        <div class="radio">
+                            <label><input type="radio" name="zhiTi" value="A" >肢体拘挛不舒，肢体麻木</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="zhiTi" value="B">筋力强健，活动自如</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="zhiTi" value="C">肢体震颤，手足抽搐</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--月经症状-->
+                    <div class="item">
+                        <span>18.月经症状</span>
+                        <div class="radio radio-block">
+                            <label><input type="radio" name="yueJing" value="A" >月经后期（痛经），量少，色暗</label>
+                        </div>
+                        <div class="radio radio-block">
+                            <label><input type="radio" name="yueJing" value="B">月经量少，色暗</label>
+                        </div>
+                        <div class="radio radio-block">
+                            <label><input type="radio" name="yueJing" value="C">月经正常</label>
+                        </div>
+                        <div class="radio radio-block">
+                            <label><input type="radio" name="yueJing" value="D">月经量多，质稠，色红</label>
+                        </div>
+                        <div class="radio radio-block">
+                            <label><input type="radio" name="yueJing" value="E">月经先期或不定期，量多，质稠，色红</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--易发症状-->
+                    <div class="item">
+                        <span>19.易发症状</span>
+                        <div class="radio">
+                            <label><input type="radio" name="yiFaMu" value="A" >易发疝气、瘰疬包块</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="yiFaMu" value="B">无易发症状</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="yiFaMu" value="C">易发中风、血证</label>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <!--火行人-->
+                    <!--口唇症状-->
+                    <div class="item">
+                        <span>20.口唇症状</span>
+                        <div class="radio">
+                            <label><input type="radio" name="kouChun" value="A" >口唇紫暗</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="kouChun" value="B">口唇淡白</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="kouChun" value="C">口唇淡红色</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="kouChun" value="D">口唇鲜红，偶有生疮</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="kouChun" value="E">时常口舌生疮，易口苦</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--心胸症状-->
+                    <div class="item">
+                        <span>21.心胸症状</span>
+                        <div class="radio">
+                            <label><input type="radio" name="xinXiong" value="A" >心悸心慌，心胸憋闷</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="xinXiong" value="B">偶有心慌、胸闷气短</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="xinXiong" value="C">未见心胸不适</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="xinXiong" value="D">偶有心胸烦热，心悸</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="xinXiong" value="E">经常心胸烦热不安、心悸怔忡</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--易发症状-->
+                    <div class="item">
+                        <span>22.易发症状</span>
+                        <div class="radio">
+                            <label><input type="radio" name="yiFaHuo" value="A" >易发痴呆、胸痹</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="yiFaHuo" value="B">无易发症状</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="yiFaHuo" value="C">易发谵语、狂证、血证</label>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <!--土行人-->
+                    <!--头身症状-->
+                    <div class="item">
+                        <span>23.头身症状</span>
+                        <div class="radio">
+                            <label><input type="radio" name="touShen" value="A" >时常头目眩晕，神疲乏力</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="touShen" value="B">偶有头晕，四肢乏力</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="touShen" value="C">未见头身不适</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="touShen" value="D">偶有头身困重</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="touShen" value="E">经常头身困重，不清醒</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--舌唇症状-->
+                    <div class="item">
+                        <span>24.舌唇症状</span>
+                        <div class="radio">
+                            <label><input type="radio" name="sheChun" value="A" >口唇苍白，口泛清水</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="sheChun" value="B">舌淡唇白，口泛清水</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="sheChun" value="C">唇舌淡红，偶有口中发甜</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="sheChun" value="D">唇舌鲜红，口中黏腻</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="sheChun" value="E">唇舌鲜红（干裂），口臭，口舌生疮</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--胃脘症状-->
+                    <div class="item">
+                        <span>25.胃脘症状</span>
+                        <div class="radio">
+                            <label><input type="radio" name="weiWan" value="A" >纳呆食不化，嗳气</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="weiWan" value="B">偶见纳少，痞闷</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="weiWan" value="C">胃脘未见不适</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="weiWan" value="D">偶见灼痛， 吞酸嘈杂</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="weiWan" value="E">胃脘灼痛，消谷善饥，吞酸嘈杂</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--腹部症状-->
+                    <div class="item">
+                        <span>26.腹部症状</span>
+                        <div class="radio">
+                            <label><input type="radio" name="fuBu" value="A" >腹部冷痛，腹胀，喜温喜按</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="fuBu" value="B">偶有腹痛或腹胀，喜温</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="fuBu" value="C">腹部未见不适</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="fuBu" value="D">偶见腹痛腹胀</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="fuBu" value="E">腹胀伴烧灼痛</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--易发症状-->
+                    <div class="item">
+                        <span>27.易发症状</span>
+                        <div class="radio">
+                            <label><input type="radio" name="yiFaTu" value="A" >易发内脏下垂（脱肛、阴挺、胃下垂），出血、贫血，或痰湿，水肿</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="yiFaTu" value="B">无易发症状</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="yiFaTu" value="C">易发腹胀、腹痛，口干、口臭，口舌生疮，大便干结</label>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <!--金行人-->
+                    <!--咳嗽-->
+                    <div class="item">
+                        <span>28.咳嗽</span>
+                        <div class="radio">
+                            <label><input type="radio" name="keSou" value="A" >咳嗽气促，畏寒易感冒</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="keSou" value="B">偶见咳嗽，畏寒</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="keSou" value="C">无咳嗽</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="keSou" value="D">偶有咳嗽，伴口干、咽喉红肿</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="keSou" value="E">咳嗽气紧，声音嘶哑，伴口干、咽喉肿痛</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--咯痰-->
+                    <div class="item">
+                        <span>29.咯痰</span>
+                        <div class="radio">
+                            <label><input type="radio" name="geTan" value="A" >痰白稀薄，量多</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="geTan" value="B">痰色清白</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="geTan" value="C">无咳痰</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="geTan" value="D">痰稠色黄</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="geTan" value="E">痰粘色黄，量多，不易咯出</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--鼻部症状-->
+                    <div class="item">
+                        <span>30.鼻部症状</span>
+                        <div class="radio">
+                            <label><input type="radio" name="biBu" value="A" >鼻流清涕，量多</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="biBu" value="B">鼻流清涕</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="biBu" value="C">无明显鼻部症状</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="biBu" value="D">鼻塞、流浊涕</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="biBu" value="E">鼻塞，鼻干，流黄浊涕</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--皮肤-->
+                    <div class="item">
+                        <span>31.皮肤</span>
+                        <div class="radio">
+                            <label><input type="radio" name="piFu" value="A" >皮肤凉润</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="piFu" value="B">皮肤润泽</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="piFu" value="C">皮肤干燥</label>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <!--水行人-->
+                    <!--腰膝症状-->
+                    <div class="item">
+                        <span>32.腰膝症状</span>
+                        <div class="radio">
+                            <label><input type="radio" name="yaoQi" value="A" >时常腰膝酸软无力，畏寒肢冷</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="yaoQi" value="B">偶有腰膝酸软，乏力</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="yaoQi" value="C">腰膝部活动自如</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="yaoQi" value="D">腰膝酸痛</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="yaoQi" value="E">经常腰膝酸痛、胀痛</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--性欲-->
+                    <div class="item">
+                        <span>33.性欲</span>
+                        <div class="radio">
+                            <label><input type="radio" name="xingYu" value="A" >性欲低下</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="xingYu" value="B">性欲正常</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="xingYu" value="C">性欲较强</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--遗精-->
+                    <div class="item">
+                        <span>34.遗精</span>
+                        <div class="radio">
+                            <label><input type="radio" name="yiJing" value="A" >阳痿早泄，滑精</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="yiJing" value="B">正常</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="yiJing" value="C">阳强易举，滑精遗精</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--带下症状-->
+                    <div class="item">
+                        <span>35.带下症状</span>
+                        <div class="radio">
+                            <label><input type="radio" name="daiXia" value="A" >带下色白、量多、质清晰</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="daiXia" value="B">带下色白、质清晰</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="daiXia" value="C">带下正常</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="daiXia" value="D">带下色黄、质黏稠</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="daiXia" value="E">带下色黄或红，质稠，有异味</label>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <!--好发季节-->
+                    <div class="item">
+                        <span>36.好发季节</span>
+                        <div class="radio radio-block">
+                            <label><input type="radio" name="haoFaJiJie" value="A" >春（起）、夏（愈）、长夏（/）、秋（甚）、冬（持）</label>
+                        </div>
+                        <div class="radio radio-block">
+                            <label><input type="radio" name="haoFaJiJie" value="B">春（持）、夏（起）、长夏（愈）、秋（/）、冬（甚）</label>
+                        </div>
+                        <div class="radio radio-block">
+                            <label><input type="radio" name="haoFaJiJie" value="C">春（甚）、夏（持）、长夏（起）、秋（愈）、冬（/）</label>
+                        </div>
+                        <div class="radio radio-block">
+                            <label><input type="radio" name="haoFaJiJie" value="D">春（/ ）、夏（甚）、长夏（持）、秋（起）、冬（愈）</label>
+                        </div>
+                        <div class="radio radio-block">
+                            <label><input type="radio" name="haoFaJiJie" value="E">春（愈）、夏（/）、长夏（甚）、秋（持）、冬（起）</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <!--好发病位-->
+                    <div class="item">
+                        <span>37.好发病位</span>
+                        <div class="radio radio-block">
+                            <label><input type="radio" name="haoFaBingWei" value="A" >肝系（肝、胆、目、血、关节），情志及妇科等</label>
+                        </div>
+                        <div class="radio radio-block">
+                            <label><input type="radio" name="haoFaBingWei" value="B">心系（心脑、血脉、小肠、口舌），痈疮及神志等</label>
+                        </div>
+                        <div class="radio radio-block">
+                            <label><input type="radio" name="haoFaBingWei" value="C">脾系（脾、胃、唇口、肌肉）、血证</label>
+                        </div>
+                        <div class="radio radio-block">
+                            <label><input type="radio" name="haoFaBingWei" value="D">肺系（肺、大肠、鼻、皮肤）</label>
+                        </div>
+                        <div class="radio radio-block">
+                            <label><input type="radio" name="haoFaBingWei" value="E">肾系（肾、膀胱、耳、二阴、骨）</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <a style="display:none" href="javascript:;" class="back_to_top"  title="回到顶部"></a>
+                    <!--保存-->
+                    <div class="item">
+                        <input type="button" class="form-control nextStep" ng-click="isValidForm()" value="保存">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- index.html 查询、删除模态框（Modal） -->
+    <div class="modal fade" id="mobileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="background-color: #d2d2d2">
+            <div class="modal-content" style="background-color: #d2d2d2">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel" style="font-size: 15px;color: #1e4340">提示：该患者姓名有重复，请选择患者手机号码确定患者数据</h4>
+                </div>
+                <div class="modal-body">
+                    <!--出生日期、身份证号-->
+                    <div class="header-content-2">
+                        <div>
+                            <span style="color: #1e4340">手机号码:</span>
+                            <select id="phoneList" class="form-control"  style="width: 190px;display: inline-block">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="isQuery()">确定提交</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</div>
+<!--尾注-->
+<div class=" footer">&copy;阴阳五行人体质研究</div>
+<script src="js/lib/jquery-1.11.1.min.js"></script>
+<script src="js/lib/jquery.form.js"></script>
+<script src="js/lib/bootstrap.min.js"></script>
+<script src="js/lib/angular.min.js"></script>
+<script src="js/index.js"></script>
+<script>
+    var date2 = new ruiDatepicker().init('#birthday');
+   /* $(function () {
+        for (var i = 0; i < 24; i++) {
+            $("#selectHour").append("<option value='" + i + "'>" + i + "</option>");//i 变量
+        }
+        for (var i = 0; i < 60; i++) {
+            $("#selectMin").append("<option value='" + i + "'>" + i + "</option>");//i 变量
+        }
+    })*/
+</script>
+</body>
+</html>

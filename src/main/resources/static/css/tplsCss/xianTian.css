@@ -1,0 +1,97 @@
+
+.xT-main {
+    width: 97%;
+    min-height: 550px;
+    margin: 25px auto;
+}
+
+.xT-header {
+    min-height: 45px;
+    background: #FFFFFF;
+    color: #37847c;
+    padding-bottom: 0.5%;
+}
+
+.xT-header .form-control {
+    display: inline-block;
+    width: 80%;
+}
+
+hr {
+    margin: 5px 0;
+}
+
+.xT-header .header-p {
+    font-size: 1.1em;
+    color: #0eaaf2;
+    padding: 1% 0 0 0.7%;
+    width: 80%;
+}
+
+.xT-main .header-content {
+    display: inline-block;
+}
+
+.xT-main .header-content-1{
+    display: inline-block;
+    width: 100%;
+    margin-top: 10px;
+    margin-left: 5%;
+}
+
+.xT-main .header-btn {
+    display: inline-block;
+    width: 20%;
+    margin-top: 1%;
+}
+
+.xT-main .header-content-2 {
+    width: 50%;
+}
+
+.xT-header .header-btn-group:first-child {
+    margin-left: 5%;
+}
+
+
+.xT-content {
+    padding: 10px;
+    min-height: 370px;
+    background-color: #FFFFFF;
+    margin-top: 20px;
+    color: #37847c;
+}
+
+.xT-content .content-p {
+    font-size: 1.1em;
+    color: #0eaaf2;
+}
+
+.xT-header input[type='button'] {
+    background-color: #0b95a9;
+    border: #0b95a9;
+    font-size: 12px;
+    margin-top: -5px;
+}
+
+.xT-header input[type='button']:hover,
+.xT-header input[type='button']:active,
+.xT-header input[type='button']:focus {
+    background-color: #a94442;
+    border: #a94442;
+    color: whitesmoke;
+}
+
+.content-table table th, .content-table table td {
+    text-align: center;
+    font-size: 14px;
+}
+
+.content-table h4 ,.content-img h4{
+    color: #88ae97;
+    font-size: 15px;
+}
+
+.content-left,.content-right{
+    text-align: center;
+}

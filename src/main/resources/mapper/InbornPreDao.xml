@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cdutcm.elements.dao.InbornPreDao">
+    <insert id="insertInbornPre" parameterType="com.cdutcm.elements.entity.InbornPre">
+        INSERT INTO inborn_pre (id, phone, name, wood, fire, earth, metal, water, inborn)
+        VALUES (#{id}, #{phone}, #{name}, #{wood}, #{fire}, #{earth}, #{metal}, #{water}, #{inborn});
+    </insert>
+    <delete id="deleteInbornPre" parameterType="com.cdutcm.elements.entity.InbornPre">
+        DELETE FROM inborn_pre WHERE 1 = 1
+        <if test="inbornPre != null">
+            <include refid="condition"/>
+        </if>
+    </delete>
+    <update id="updateInbornPre" parameterType="com.cdutcm.elements.entity.InbornPre">
+        update inborn_pre
+        <set>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="wood != null">wood = #{wood},</if>
+            <if test="fire != null">fire = #{fire},</if>
+            <if test="earth != null">earth = #{earth},</if>
+            <if test="metal != null">metal = #{metal},</if>
+            <if test="water != null">water = #{water},</if>
+            <if test="inborn != null and inborn != ''">inborn = #{inborn},</if>
+        </set>
+        <where>
+            <if test="phone != null and phone != ''">phone = #{phone}</if>
+        </where>
+    </update>
+    <select id="selectInbornPre" parameterType="com.cdutcm.elements.entity.InbornPre"
+            resultType="com.cdutcm.elements.entity.InbornPre">
+        SELECT * FROM inborn_pre WHERE 1 = 1
+        <if test="inbornPre != null">
+            <include refid="condition"/>
+        </if>
+    </select>
+    <sql id="condition">
+        <if test="inbornPre.id != null and inbornPre.id != ''">and id = #{inbornPre.id}</if>
+        <if test="inbornPre.phone != null and inbornPre.phone != ''">and phone = #{inbornPre.phone}</if>
+        <if test="inbornPre.name != null and inbornPre.name != ''">and name = #{inbornPre.name},</if>
+        <if test="inbornPre.wood != null and inbornPre.wood != ''">and wood = #{inbornPre.wood}</if>
+        <if test="inbornPre.fire != null and inbornPre.fire != ''">and fire = #{inbornPre.fire}</if>
+        <if test="inbornPre.earth != null and inbornPre.earth != ''">and earth = #{inbornPre.earth}</if>
+        <if test="inbornPre.metal != null and inbornPre.metal != ''">and metal = #{inbornPre.metal}</if>
+        <if test="inbornPre.water != null and inbornPre.water != ''">and water = #{inbornPre.water}</if>
+        <if test="inbornPre.inborn != null and inbornPre.inborn != ''">and inborn = #{inbornPre.inborn}</if>
+    </sql>
+</mapper>
